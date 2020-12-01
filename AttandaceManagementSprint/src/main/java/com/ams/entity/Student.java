@@ -1,65 +1,72 @@
 package com.ams.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
+
 import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
+import com.sun.istack.NotNull;
 import javax.persistence.Table;
+
 @Entity
-@Table(name ="student")
+@Table(name = "studenttable1")
 public class Student {
-	@Id // specifies the property, used for identify the class
-	@Column(name="student_Id")
+	@Id
+	@Column(name = "STUDENT_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long studentId;
+	@NotNull
+	@Column(name="Roll_No",length=10)
 	private Long rollNo;
+	@NotNull
+	@Column(name="FIRST_NAME",length=10)
 	private String firstName;
+	@NotNull
+	@Column(name="LAST_NAME",length=10)
 	private String lastName;
-	//private Date dob;
+	@NotNull
+	@Column(name="Gender",length=10)
 	private String gender;
+	@NotNull
+	@Column(name="Email",length=10)
+	private String email;
+	@NotNull
+	@Column(name="Mobile",length=15)
 	private String mobileNo;
-	private Long courseId;
+	@NotNull
+	@Column(name="COURSE",length=10)
 	private String courseName;
-	private Long subjectId;
+	@NotNull
+	@Column(name="COURSE_ID",length=10)
+	private Long courseId;
+	@NotNull
+	@Column(name = "SUBJ_NAME", length = 10)
 	private String subjectName;
-	private String semester;
-	private String emailId;
-	private String fatherEmailId;
-	private String fatherMobileNo;
-	private String profilePic;
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", rollNo=" + rollNo + ", firstName=" + firstName + ", lastName="
-				+ lastName + ", gender=" + gender + ", mobileNo=" + mobileNo + ", courseId=" + courseId
-				+ ", courseName=" + courseName + ", subjectId=" + subjectId + ", subjectName=" + subjectName
-				+ ", semester=" + semester + ", emailId=" + emailId + ", fatherEmailId=" + fatherEmailId
-				+ ", fatherMobileNo=" + fatherMobileNo + ", profilePic=" + profilePic + "]";
-	}
-	
-	public Student(Long studentId, Long rollNo, String firstName, String lastName, String gender, String mobileNo,
-			Long courseId, String courseName, Long subjectId, String subjectName, String semester, String emailId,
-			String fatherEmailId, String fatherMobileNo, String profilePic) {
+	@NotNull
+	@Column(name = "SUBJ_ID", length = 10)
+	private Long subjectId;
+	@NotNull
+	@Column(name="FATHER_Mobile",length=10)
+	private Long fatherMobile;
+	public Student(Long rollNo, String firstName, String lastName, String gender, String email, String mobileNo,
+			String courseName, Long courseId, String subjectName, Long subjectId, Long fatherMobile) {
 		super();
-		this.studentId = studentId;
 		this.rollNo = rollNo;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
+		this.email = email;
 		this.mobileNo = mobileNo;
-		this.courseId = courseId;
 		this.courseName = courseName;
-		this.subjectId = subjectId;
+		this.courseId = courseId;
 		this.subjectName = subjectName;
-		this.semester = semester;
-		this.emailId = emailId;
-		this.fatherEmailId = fatherEmailId;
-		this.fatherMobileNo = fatherMobileNo;
-		this.profilePic = profilePic;
+		this.subjectId = subjectId;
+		this.fatherMobile = fatherMobile;
 	}
-
 	public Long getStudentId() {
 		return studentId;
 	}
@@ -84,17 +91,17 @@ public class Student {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	/**public Date getDob() {
-		return dob;
-	}
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}***/
 	public String getGender() {
 		return gender;
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getMobileNo() {
 		return mobileNo;
@@ -102,23 +109,17 @@ public class Student {
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-	public Long getCourseId() {
-		return courseId;
-	}
-	public void setCourseId(Long courseId) {
-		this.courseId = courseId;
-	}
 	public String getCourseName() {
 		return courseName;
 	}
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-	public Long getSubjectId() {
-		return subjectId;
+	public Long getCourseId() {
+		return courseId;
 	}
-	public void setSubjectId(Long subjectId) {
-		this.subjectId = subjectId;
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
 	}
 	public String getSubjectName() {
 		return subjectName;
@@ -126,37 +127,29 @@ public class Student {
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
-	public String getSemester() {
-		return semester;
+	public Long getSubjectId() {
+		return subjectId;
 	}
-	public void setSemester(String semester) {
-		this.semester = semester;
+	public void setSubjectId(Long subjectId) {
+		this.subjectId = subjectId;
 	}
-	public String getEmailId() {
-		return emailId;
+	public Long getFatherMobile() {
+		return fatherMobile;
 	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setFatherMobile(Long fatherMobile) {
+		this.fatherMobile = fatherMobile;
 	}
-	public String getFatherEmailId() {
-		return fatherEmailId;
-	}
-	public void setFatherEmailId(String fatherEmailId) {
-		this.fatherEmailId = fatherEmailId;
-	}
-	public String getFatherMobileNo() {
-		return fatherMobileNo;
-	}
-	public void setFatherMobileNo(String fatherMobileNo) {
-		this.fatherMobileNo = fatherMobileNo;
-	}
-	public String getProfilePic() {
-		return profilePic;
-	}
-	public void setProfilePic(String profilePic) {
-		this.profilePic = profilePic;
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", rollNo=" + rollNo + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", gender=" + gender + ", email=" + email + ", mobileNo=" + mobileNo + ", courseName="
+				+ courseName + ", courseId=" + courseId + ", subjectName=" + subjectName + ", subjectId=" + subjectId
+				+ ", fatherMobile=" + fatherMobile + "]";
 	}
 	public Student() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
 }

@@ -1,11 +1,11 @@
-package com.ams.Service;
+package com.ams.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ams.Dao.StudentDao;
 import com.ams.entity.Student;
+import com.ams.repository.StudentDao;
 @Service("service")
 @Transactional
 public class StudentServiceImpl implements StudentService {
@@ -32,8 +32,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Student findByName(String firstName) {
-		return dao.findByName(firstName);
+	public Student findByFirstName(String firstName) {
+		return dao.findByFirstName(firstName);
 	}
 
 	@Override

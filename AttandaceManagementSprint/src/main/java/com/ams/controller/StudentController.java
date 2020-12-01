@@ -1,4 +1,4 @@
-package com.ams.Controller;
+package com.ams.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ams.Service.StudentService;
 import com.ams.entity.Student;
+import com.ams.service.StudentService;
 
 @RestController
 @RequestMapping("/api/AttendanceManagementSystem")
@@ -73,7 +73,7 @@ public class StudentController {
 			return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
 
 		}
-		@GetMapping("/find/{rollNo}")
+		@GetMapping("/findroll/{rollNo}")
 
 		public ResponseEntity<Student> getStudentByRollNo(@PathVariable("rollNo") Long rollNo) {
 
@@ -82,7 +82,7 @@ public class StudentController {
 			return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
 
 		}
-        @GetMapping("/find/{gender}")
+        @GetMapping("/findgender/{gender}")
         public ResponseEntity<Student> getStudentByGender(@PathVariable("gender") String gender) {
 
 			Student student = service.findByGender(gender);
@@ -90,10 +90,10 @@ public class StudentController {
 			return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
 
 		}
-        @GetMapping("/find/{firstName")
-        public ResponseEntity<Student> getStudentByName(@PathVariable("firstName") String firstName) {
+        @GetMapping("/findfirstname/{firstName")
+        public ResponseEntity<Student> getStudentByFirstName(@PathVariable("firstName") String firstName) {
 
-			Student student = service.findByName(firstName);
+			Student student = service.findByFirstName(firstName);
 
 			return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
 
