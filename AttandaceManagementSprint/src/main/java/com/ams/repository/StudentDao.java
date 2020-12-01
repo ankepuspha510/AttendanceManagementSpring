@@ -1,19 +1,34 @@
 package com.ams.repository;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import com.ams.entity.Student;
+import com.ams.queryutil1.QueryUtil;
 
-public interface StudentDao extends JpaRepository<Student,Long>{
-	@Query("SELECT s FROM Student s WHERE s.firstName like ?1")
-	public Student findByFirstName(String firstName);
-	@Query("SELECT s FROM Student s WHERE s.studentId like ?1")
-	public Student findByStudentId(Long studentId);
-	@Query("SELECT s FROM Student s WHERE s.rollNo like ?1")
+/***
+ * 
+ * @author pushpa
+ *
+ */
+public interface StudentDao extends JpaRepository<Student, Long> {
+	// Query to find record of student by rollNo
+	@Query(QueryUtil.VIEW_STUD_BY_ROLLNO)
 	public Student findByRollNo(Long rollNo);
-	@Query("SELECT s FROM Student s WHERE s.gender like ?1")
-	public Student findByGender(String gender);
+
+	// Query to find record of student by courseId
+	@Query(QueryUtil.VIEW_STUD_BY_COURSEID)
+	public List<Student> findByCourseId(Long courseId);
+
+	// Query to delete a record of student using id
+	@Query(QueryUtil.DEL_STUD_BY_ID)
+	@Transactional
+	@Modifying
+	public void deleteByStudentId(Long StudentId);
 
 }

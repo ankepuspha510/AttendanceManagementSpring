@@ -1,5 +1,7 @@
 package com.ams.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,91 +16,76 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ams.entity.Student;
+import com.ams.exception.RecordNotFoundException;
 import com.ams.service.StudentService;
 
+/**
+ * @author puspha
+ *
+ */
+//mark class as a Controller
 @RestController
-@RequestMapping("/api/AttendanceManagementSystem")
+@RequestMapping("/api/attendance")
 public class StudentController {
+	// autowire the attendanceService class
 	@Autowired
-	StudentService service;
+	private StudentService studentservice;
+
 	@GetMapping("/helloworld")
 	public String sayHello() {
 		return "HelloWorld";
 	}
+
+	// creating post mapping that post the student detail in the database
 	@PostMapping("/insert")
-
 	public Long create(@RequestBody Student student) {
-
-		service.add(student);
-
+		studentservice.add(student);
 		@SuppressWarnings({ "unused", "unchecked", "rawtypes" })
-
 		ResponseEntity<Boolean> responseEntity = new ResponseEntity(true, HttpStatus.OK);
-
 		return student.getStudentId();
 
 	}
+
 	// creating put mapping that updates the attendance detail
+	@PutMapping("/update")
+	public ResponseEntity<Boolean> update(@RequestBody Student student) {
+		studentservice.update(student);
+		@SuppressWarnings({ "rawtypes", "unchecked" })
+		ResponseEntity<Boolean> responseEntity = new ResponseEntity(true, HttpStatus.OK);
+		return responseEntity;
+	}
 
-		@PutMapping("/update")
+	// creating a delete mapping that deletes a specified student
+	@RequestMapping(value = "/delete/{studentId}", method = RequestMethod.DELETE)
+	public String deleteStudent(@PathVariable Long studentId) throws RecordNotFoundException {
+		studentservice.deleteByStudentId(studentId);
+		return "student has been deleted successfully";
+	}
 
-		public ResponseEntity<Boolean> update(@RequestBody Student student) {
+	// creating get mapping that retrieves the detail of a specific Student
+	@GetMapping("/findStudent/{studentId}")
+	public ResponseEntity<Student> getStudentBystudentId(@PathVariable("studentId") Long studentId)
+			throws RecordNotFoundException {
+		Student student = studentservice.getByStudentId(studentId);
+		return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
 
-			service.update(student);
+	}
 
-			@SuppressWarnings({ "rawtypes", "unchecked" })
+	// creating get mapping that retrieves the detail of a specific Student
+	@GetMapping("/findroll/{rollNo}")
+	public ResponseEntity<Student> getStudentByRollNo(@PathVariable("rollNo") Long rollNo)
+			throws RecordNotFoundException {
+		Student student = studentservice.findByRollNo(rollNo);
+		return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
 
-			ResponseEntity<Boolean> responseEntity = new ResponseEntity(true, HttpStatus.OK);
+	}
 
-			return responseEntity;
-
-		}
-		// creating a delete mapping that deletes a specified student
-
-		@RequestMapping(value = "/delete/{studentId}", method = RequestMethod.DELETE)
-
-		public String deleteStudent(@PathVariable Long studentId) {
-
-			service.deleteByStudentId(studentId);
-
-			return "student has been deleted successfully";
-
-		}
-		@GetMapping("/findStudent/{studentId}")
-
-		public ResponseEntity<Student> getStudentBystudentId(@PathVariable("studentId") Long studentId) {
-
-			Student student = service.findByStudentId(studentId);
-
-			return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
-
-		}
-		@GetMapping("/findroll/{rollNo}")
-
-		public ResponseEntity<Student> getStudentByRollNo(@PathVariable("rollNo") Long rollNo) {
-
-			Student student = service.findByRollNo(rollNo);
-
-			return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
-
-		}
-        @GetMapping("/findgender/{gender}")
-        public ResponseEntity<Student> getStudentByGender(@PathVariable("gender") String gender) {
-
-			Student student = service.findByGender(gender);
-
-			return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
-
-		}
-        @GetMapping("/findfirstname/{firstName")
-        public ResponseEntity<Student> getStudentByFirstName(@PathVariable("firstName") String firstName) {
-
-			Student student = service.findByFirstName(firstName);
-
-			return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
-
-		}
-        
-        
+	// creating get mapping that retrieves the detail of a specific Student
+	@GetMapping("/findcourse/{courseId}")
+	public ResponseEntity<List<Student>> getStudentByCourseId(@PathVariable("courseId") Long courseId)
+			throws RecordNotFoundException {
+		List<Student> student = studentservice.findByCourseId(courseId);
+		return new ResponseEntity<List<Student>>(student, HttpStatus.OK);
+	}
 
 }
