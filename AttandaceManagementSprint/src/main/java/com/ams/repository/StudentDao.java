@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import com.ams.entity.Student;
+import com.ams.entity.StudentEntity;
 import com.ams.queryutil1.QueryUtil;
 
 /***
@@ -16,14 +16,14 @@ import com.ams.queryutil1.QueryUtil;
  * @author pushpa
  *
  */
-public interface StudentDao extends JpaRepository<Student, Long> {
+public interface StudentDao extends JpaRepository<StudentEntity, Long> {
 	// Query to find record of student by rollNo
 	@Query(QueryUtil.VIEW_STUD_BY_ROLLNO)
-	public Student findByRollNo(Long rollNo);
+	public StudentEntity findByRollNo(Long rollNo);
 
 	// Query to find record of student by courseId
 	@Query(QueryUtil.VIEW_STUD_BY_COURSEID)
-	public List<Student> findByCourseId(Long courseId);
+	public List<StudentEntity> findByCourseId(Long courseId);
 
 	// Query to delete a record of student using id
 	@Query(QueryUtil.DEL_STUD_BY_ID)

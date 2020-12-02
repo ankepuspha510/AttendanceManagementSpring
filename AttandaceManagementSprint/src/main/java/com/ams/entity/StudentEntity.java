@@ -6,15 +6,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 /*https://www.javatpoint.com/spring-boot-crud-operations*/
-import com.sun.istack.NotNull;
+
 import javax.persistence.Table;
+
+import com.sun.istack.NotNull;
 
 /**
  * *@author pushpa
  */
 @Entity
 @Table(name = "studenttable1")
-public class Student {
+public class StudentEntity {
 	@Id
 	@Column(name = "STUDENT_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -51,7 +53,7 @@ public class Student {
 	private Long subjectId;
 	@NotNull
 	@Column(name = "FATHER_Mobile", length = 10)
-	private Long fatherMobile;
+	private String fatherMobile;
 
 	// getters and setters
 	public Long getStudentId() {
@@ -142,11 +144,11 @@ public class Student {
 		this.subjectId = subjectId;
 	}
 
-	public Long getFatherMobile() {
+	public String getFatherMobile() {
 		return fatherMobile;
 	}
 
-	public void setFatherMobile(Long fatherMobile) {
+	public void setFatherMobile(String fatherMobile) {
 		this.fatherMobile = fatherMobile;
 	}
 
@@ -165,8 +167,8 @@ public class Student {
 	 * 
 	 * Constructor generation
 	 */
-	public Student(Long rollNo, String firstName, String lastName, String gender, String email, String mobileNo,
-			String courseName, Long courseId, String subjectName, Long subjectId, Long fatherMobile) {
+	public StudentEntity(Long rollNo, String firstName, String lastName, String gender, String email, String mobileNo,
+			String courseName, Long courseId, String subjectName, Long subjectId, String fatherMobile) {
 		super();
 		this.rollNo = rollNo;
 		this.firstName = firstName;
@@ -181,8 +183,7 @@ public class Student {
 		this.fatherMobile = fatherMobile;
 	}
 
-	public Student() {
-		// TODO Auto-generated constructor stub
+	public StudentEntity() {
 	}
 
 }

@@ -1,20 +1,19 @@
 package com.ams.service;
 
 import java.util.List;
-import com.ams.entity.Student;
+import com.ams.entity.StudentEntity;
 import com.ams.exception.RecordNotFoundException;
 
 public interface StudentService {
-	public Long add(Student student);
+	public Long add(StudentEntity student);
 
-	public void update(Student student);
+	public void update(StudentEntity student);
 
-	public void deleteByStudentId(Long StudentId) throws RecordNotFoundException;
+	public void deleteByStudentId(Long studentId) throws RecordNotFoundException;
 
-	public Student getByStudentId(Long studentId) throws RecordNotFoundException;
+	public StudentEntity getByStudentId(Long studentId) throws RecordNotFoundException;
 
-	public List<Student> findByCourseId(Long courseId) throws RecordNotFoundException;
-
-	public Student findByRollNo(Long rollNo) throws RecordNotFoundException;
+	public List<StudentEntity> findByCourseId(Long courseId) throws RecordNotFoundException;
+	public List<StudentEntity> findAllStudents() throws RecordNotFoundException;
 
 }

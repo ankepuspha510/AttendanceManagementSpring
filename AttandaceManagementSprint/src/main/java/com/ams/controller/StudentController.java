@@ -1,7 +1,6 @@
 package com.ams.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ams.entity.Student;
+import com.ams.entity.StudentEntity;
 import com.ams.exception.RecordNotFoundException;
 import com.ams.service.StudentService;
 
@@ -38,7 +36,7 @@ public class StudentController {
 
 	// creating post mapping that post the student detail in the database
 	@PostMapping("/insert")
-	public Long create(@RequestBody Student student) {
+	public Long create(@RequestBody StudentEntity student) {
 		studentservice.add(student);
 		@SuppressWarnings({ "unused", "unchecked", "rawtypes" })
 		ResponseEntity<Boolean> responseEntity = new ResponseEntity(true, HttpStatus.OK);
@@ -48,7 +46,7 @@ public class StudentController {
 
 	// creating put mapping that updates the attendance detail
 	@PutMapping("/update")
-	public ResponseEntity<Boolean> update(@RequestBody Student student) {
+	public ResponseEntity<Boolean> update(@RequestBody StudentEntity student) {
 		studentservice.update(student);
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		ResponseEntity<Boolean> responseEntity = new ResponseEntity(true, HttpStatus.OK);
@@ -64,28 +62,25 @@ public class StudentController {
 
 	// creating get mapping that retrieves the detail of a specific Student
 	@GetMapping("/findStudent/{studentId}")
-	public ResponseEntity<Student> getStudentBystudentId(@PathVariable("studentId") Long studentId)
+	public ResponseEntity<StudentEntity> getStudentBystudentId(@PathVariable("studentId") Long studentId)
 			throws RecordNotFoundException {
-		Student student = studentservice.getByStudentId(studentId);
-		return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
-
-	}
-
-	// creating get mapping that retrieves the detail of a specific Student
-	@GetMapping("/findroll/{rollNo}")
-	public ResponseEntity<Student> getStudentByRollNo(@PathVariable("rollNo") Long rollNo)
-			throws RecordNotFoundException {
-		Student student = studentservice.findByRollNo(rollNo);
-		return new ResponseEntity<Student>(student, new HttpHeaders(), HttpStatus.OK);
+		StudentEntity student = studentservice.getByStudentId(studentId);
+		return new ResponseEntity<StudentEntity>(student, new HttpHeaders(), HttpStatus.OK);
 
 	}
 
 	// creating get mapping that retrieves the detail of a specific Student
 	@GetMapping("/findcourse/{courseId}")
-	public ResponseEntity<List<Student>> getStudentByCourseId(@PathVariable("courseId") Long courseId)
+	public ResponseEntity<List<StudentEntity>> getStudentByCourseId(@PathVariable("courseId") Long courseId)
 			throws RecordNotFoundException {
-		List<Student> student = studentservice.findByCourseId(courseId);
-		return new ResponseEntity<List<Student>>(student, HttpStatus.OK);
+		List<StudentEntity> student = studentservice.findByCourseId(courseId);
+		return new ResponseEntity<List<StudentEntity>>(student, HttpStatus.OK);
+	}
+	// getting all student records by using the method findaAll() of CrudRepository
+	@GetMapping("/list")
+	private List<StudentEntity> getAllStudents() throws RecordNotFoundException {
+		return studentservice.findAllStudents();// response entity
+
 	}
 
 }
