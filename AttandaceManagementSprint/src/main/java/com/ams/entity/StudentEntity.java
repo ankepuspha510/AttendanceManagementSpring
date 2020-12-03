@@ -1,5 +1,7 @@
 package com.ams.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 
 /**
@@ -34,7 +37,7 @@ public class StudentEntity {
 	@Column(name = "Gender", length = 10)
 	private String gender;
 	@NotNull
-	@Column(name = "Email", length = 10)
+	@Column(name = "Email", length = 30)
 	private String email;
 	@NotNull
 	@Column(name = "Mobile", length = 15)
@@ -54,6 +57,10 @@ public class StudentEntity {
 	@NotNull
 	@Column(name = "FATHER_Mobile", length = 10)
 	private String fatherMobile;
+	@JsonFormat(shape = JsonFormat.Shape.STRING)
+	@NotNull
+	@Column(name = "T_DATE")
+	private LocalDate dob;
 
 	// getters and setters
 	public Long getStudentId() {
@@ -152,6 +159,14 @@ public class StudentEntity {
 		this.fatherMobile = fatherMobile;
 	}
 
+	public LocalDate getDob() {
+		return dob;
+	}
+
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+
 	/**
 	 * creating getters and setters for above properties
 	 */
@@ -160,7 +175,7 @@ public class StudentEntity {
 		return "Student [studentId=" + studentId + ", rollNo=" + rollNo + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", gender=" + gender + ", email=" + email + ", mobileNo=" + mobileNo + ", courseName="
 				+ courseName + ", courseId=" + courseId + ", subjectName=" + subjectName + ", subjectId=" + subjectId
-				+ ", fatherMobile=" + fatherMobile + "]";
+				+ ", fatherMobile=" + fatherMobile + ",dob="+ dob +"]";
 	}
 
 	/**
@@ -168,7 +183,7 @@ public class StudentEntity {
 	 * Constructor generation
 	 */
 	public StudentEntity(Long rollNo, String firstName, String lastName, String gender, String email, String mobileNo,
-			String courseName, Long courseId, String subjectName, Long subjectId, String fatherMobile) {
+			String courseName, Long courseId, String subjectName, Long subjectId, String fatherMobile,LocalDate dob) {
 		super();
 		this.rollNo = rollNo;
 		this.firstName = firstName;
@@ -181,6 +196,7 @@ public class StudentEntity {
 		this.subjectName = subjectName;
 		this.subjectId = subjectId;
 		this.fatherMobile = fatherMobile;
+		this.dob=dob;
 	}
 
 	public StudentEntity() {

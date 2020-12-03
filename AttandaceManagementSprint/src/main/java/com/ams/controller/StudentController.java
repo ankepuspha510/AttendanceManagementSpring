@@ -27,7 +27,7 @@ import com.ams.service.StudentService;
 public class StudentController {
 	// autowire the attendanceService class
 	@Autowired
-	private StudentService studentservice;
+	private StudentService studentService;
 
 	@GetMapping("/helloworld")
 	public String sayHello() {
@@ -37,7 +37,7 @@ public class StudentController {
 	// creating post mapping that post the student detail in the database
 	@PostMapping("/insert")
 	public Long create(@RequestBody StudentEntity student) {
-		studentservice.add(student);
+		studentService.add(student);
 		@SuppressWarnings({ "unused", "unchecked", "rawtypes" })
 		ResponseEntity<Boolean> responseEntity = new ResponseEntity(true, HttpStatus.OK);
 		return student.getStudentId();
@@ -47,7 +47,7 @@ public class StudentController {
 	// creating put mapping that updates the attendance detail
 	@PutMapping("/update")
 	public ResponseEntity<Boolean> update(@RequestBody StudentEntity student) {
-		studentservice.update(student);
+		studentService.update(student);
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		ResponseEntity<Boolean> responseEntity = new ResponseEntity(true, HttpStatus.OK);
 		return responseEntity;
@@ -56,7 +56,7 @@ public class StudentController {
 	// creating a delete mapping that deletes a specified student
 	@RequestMapping(value = "/delete/{studentId}", method = RequestMethod.DELETE)
 	public String deleteStudent(@PathVariable Long studentId) throws RecordNotFoundException {
-		studentservice.deleteByStudentId(studentId);
+		studentService.deleteByStudentId(studentId);
 		return "student has been deleted successfully";
 	}
 
@@ -64,7 +64,7 @@ public class StudentController {
 	@GetMapping("/findStudent/{studentId}")
 	public ResponseEntity<StudentEntity> getStudentBystudentId(@PathVariable("studentId") Long studentId)
 			throws RecordNotFoundException {
-		StudentEntity student = studentservice.getByStudentId(studentId);
+		StudentEntity student = studentService.getByStudentId(studentId);
 		return new ResponseEntity<StudentEntity>(student, new HttpHeaders(), HttpStatus.OK);
 
 	}
@@ -73,13 +73,13 @@ public class StudentController {
 	@GetMapping("/findcourse/{courseId}")
 	public ResponseEntity<List<StudentEntity>> getStudentByCourseId(@PathVariable("courseId") Long courseId)
 			throws RecordNotFoundException {
-		List<StudentEntity> student = studentservice.findByCourseId(courseId);
+		List<StudentEntity> student = studentService.findByCourseId(courseId);
 		return new ResponseEntity<List<StudentEntity>>(student, HttpStatus.OK);
 	}
 	// getting all student records by using the method findaAll() of CrudRepository
 	@GetMapping("/list")
-	private List<StudentEntity> getAllStudents() throws RecordNotFoundException {
-		return studentservice.findAllStudents();// response entity
+	public List<StudentEntity> getAllStudents() throws RecordNotFoundException {
+		return studentService.findAllStudents();// response entity
 
 	}
 
