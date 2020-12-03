@@ -16,6 +16,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
 import com.ams.controller.StudentController;
 import com.ams.entity.StudentEntity;
@@ -76,6 +77,25 @@ public class StudentControllerTest {
 		studentEntity.setCourseId((long) 21);
 		studentController.update(studentEntity);
 		assertEquals(21, studentEntity.getCourseId());
+	}
+	@Test
+	public void ViewStudentByIdTest() throws RecordNotFoundException {
+		StudentEntity student = new StudentEntity();
+		student.setRollNo((long) 12);
+		student.setFirstName("pushpa");
+		student.setLastName("anke");
+		student.setGender("female");
+		student.setEmail("gmail");
+		student.setMobileNo("9708654321");
+		student.setCourseId((long) 20);
+		student.setCourseName("cse");
+		student.setSubjectId((long) 12);
+		student.setSubjectName("dbms");
+		student.setFatherMobile("7674815359");
+		Long studentId = student.getStudentId();
+		when(studentController.getStudentBystudentId(studentId).getBody()).thenReturn(student);
+		ResponseEntity<StudentEntity> viewStudent = studentController.getStudentBystudentId(studentId);
+		assertEquals("cse", viewStudent.getBody().getCourseName());
 	}
 	@Test
 
